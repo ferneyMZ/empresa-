@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="card-title">Subir Guía de Aprendizaje</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('guias.subir_guia') }}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre de la Guía</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="programa_formacion" class="form-label">Programa de Formación</label>
+                <select class="form-select" id="programa_formacion" name="programa_formacion" required>
+                    <option value="" selected disabled>Seleccione un programa</option>
+                    {% for programa in programas %}
+                    <option value="{{ programa.id }}">{{ programa.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="archivo_pdf" class="form-label">Documento PDF</label>
+                <input type="file" class="form-control" id="archivo_pdf" name="archivo_pdf" accept=".pdf" required>
+                <div class="form-text">Solo se aceptan archivos en formato PDF</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Subir Guía</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
